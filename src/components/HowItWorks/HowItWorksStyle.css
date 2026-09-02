@@ -1,0 +1,141 @@
+.how-it-works {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 100px 24px;
+}
+
+.section-heading {
+  max-width: 600px;
+  margin-bottom: 50px;
+}
+
+.section-heading span {
+  color: #ff5555;
+  font-size: 12px;
+  font-weight: 600;
+  letter-spacing: 1.5px;
+}
+
+.section-heading h2 {
+  margin-top: 12px;
+  color: #f5f5f5;
+  font-size: 46px;
+  line-height: 1.1;
+}
+
+.section-heading p {
+  margin-top: 18px;
+  color: #9299a5;
+  font-size: 16px;
+  line-height: 1.6;
+}
+
+.steps {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 20px;
+}
+
+.step {
+  padding: 26px;
+  min-height: 210px;
+
+  background: rgba(255, 255, 255, 0.04);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 18px;
+
+  transition: 0.3s ease;
+}
+
+.step:hover {
+  transform: translateY(-5px);
+  border-color: rgba(255, 85, 85, 0.35);
+}
+
+.step-icon {
+  width: 42px;
+  height: 42px;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  border-radius: 10px;
+
+  background: rgba(255, 85, 85, 0.08);
+  border: 1px solid rgba(255, 85, 85, 0.2);
+
+  color: #ff5555;
+  font-size: 12px;
+  font-weight: 600;
+}
+
+.step h3 {
+  margin-top: 32px;
+  color: #f5f5f5;
+  font-size: 20px;
+}
+
+.step p {
+  margin-top: 10px;
+  color: #858d99;
+  font-size: 14px;
+  line-height: 1.6;
+}
+.steps {
+  position: relative;
+}
+
+.steps::before {
+  content: "";
+  position: absolute;
+  top: 47px;
+  left: 16%;
+  right: 16%;
+  height: 1px;
+  background: rgba(255, 255, 255, 0.1);
+  z-index: 0;
+}
+
+.step {
+  position: relative;
+  z-index: 1;
+}
+@media (max-width: 768px) {
+  .how-it-works {
+    padding: 70px 20px;
+  }
+
+  .section-heading {
+    margin-bottom: 30px;
+  }
+
+  .section-heading h2 {
+    font-size: 40px;
+    line-height: 1.05;
+  }
+
+  .section-heading p {
+    font-size: 14px;
+    line-height: 1.6;
+  }
+
+  .steps {
+    grid-template-columns: 1fr;
+    gap: 14px;
+  }
+
+  .steps::before {
+    display: none;
+  }
+
+  .step {
+    min-height: auto;
+    padding: 22px;
+  }
+
+  .step h3 {
+    margin-top: 20px;
+    font-size: 19px;
+  }
+}

@@ -1,0 +1,185 @@
+.emergency-overlay {
+  position: fixed;
+  inset: 0;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  padding: 20px;
+
+  background: rgba(0, 0, 0, 0.8);
+
+  z-index: 2000;
+}
+
+.emergency-card {
+  width: 100%;
+  max-width: 430px;
+
+  padding: 30px;
+
+  background: #15171b;
+  border: 1px solid rgba(255, 85, 85, 0.3);
+  border-radius: 20px;
+
+  text-align: center;
+}
+
+.emergency-status {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+
+  color: #ff5555;
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 1px;
+}
+
+.emergency-dot {
+  width: 8px;
+  height: 8px;
+
+  border-radius: 50%;
+  background: #ff5555;
+
+  box-shadow: 0 0 12px rgba(255, 85, 85, 0.8);
+}
+
+.emergency-card h2 {
+  margin-top: 18px;
+
+  color: #f5f5f5;
+  font-size: 24px;
+}
+
+.emergency-card > p {
+  margin-top: 10px;
+
+  color: #858d99;
+  font-size: 14px;
+  line-height: 1.6;
+}
+
+.emergency-details {
+  margin-top: 25px;
+
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.emergency-details div {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+
+  padding: 14px;
+
+  background: rgba(255, 255, 255, 0.04);
+  border-radius: 10px;
+}
+
+.emergency-details span {
+  color: #737b87;
+  font-size: 10px;
+  letter-spacing: 1px;
+}
+
+.emergency-details strong {
+  color: #f5f5f5;
+  font-size: 13px;
+}
+
+.cancel-emergency-btn {
+  width: 100%;
+  margin-top: 25px;
+  padding: 13px;
+
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 9px;
+
+  background: transparent;
+  color: #d7dbe0;
+
+  cursor: pointer;
+}
+
+.cancel-emergency-btn:hover {
+  border-color: rgba(255, 85, 85, 0.4);
+  color: #ff5555;
+}
+.whatsapp-btn {
+  width: 100%;
+  margin-top: 25px;
+  padding: 13px;
+
+  border: none;
+  border-radius: 9px;
+
+  background: #45df9a;
+  color: #101214;
+
+  cursor: pointer;
+  font-weight: 700;
+}
+
+.whatsapp-btn:hover {
+  opacity: 0.9;
+}
+
+.cancel-emergency-btn {
+  margin-top: 10px;
+}
+.sms-btn {
+  width: 100%;
+  margin-top: 10px;
+  padding: 13px;
+
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 9px;
+
+  background: rgba(255, 255, 255, 0.05);
+  color: #f5f5f5;
+
+  cursor: pointer;
+  font-weight: 600;
+}
+
+.sms-btn:hover {
+  background: rgba(255, 255, 255, 0.08);
+}
+
+.cancel-emergency-btn {
+  width: 100%;
+  margin-top: 10px;
+}
+.emergency-contact-list {
+  margin-top: 15px;
+
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.emergency-contact {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+
+  padding: 11px 13px;
+
+  background: rgba(255, 255, 255, 0.03);
+  border-radius: 8px;
+}
+
+.emergency-contact span {
+  color: #f5f5f5;
+  font-size: 13px;
+}
+
+.emergency-contact small {
+  color: #737b87;
+  font-size: 11px;
+}

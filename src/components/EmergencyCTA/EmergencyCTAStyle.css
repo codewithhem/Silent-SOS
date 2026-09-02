@@ -1,0 +1,76 @@
+.emergency-cta {
+  max-width: 1200px;
+  margin: 40px auto 100px;
+  padding: 70px 24px;
+
+  text-align: center;
+
+  border: 1px solid rgba(255, 85, 85, 0.15);
+  border-radius: 24px;
+
+  background: linear-gradient(
+    135deg,
+    rgba(255, 85, 85, 0.08),
+    rgba(255, 255, 255, 0.03)
+  );
+}
+
+.cta-content {
+  max-width: 620px;
+  margin: 0 auto;
+}
+
+.cta-content > span {
+  color: #ff5555;
+  font-size: 12px;
+  font-weight: 600;
+  letter-spacing: 1.5px;
+}
+
+.cta-content h2 {
+  margin-top: 14px;
+
+  color: #f5f5f5;
+  font-size: 48px;
+  line-height: 1.1;
+}
+
+.cta-content p {
+  max-width: 500px;
+  margin: 20px auto 30px;
+
+  color: #9299a5;
+  font-size: 15px;
+  line-height: 1.6;
+}
+
+.sos-button {
+  width: 150px;
+  height: 52px;
+
+  border: none;
+  border-radius: 10px;
+
+  background: #ff5555;
+  color: white;
+
+  font-size: 14px;
+  font-weight: 700;
+
+  cursor: pointer;
+
+  transition: 0.25s ease;
+}
+
+.sos-button:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 12px 30px rgba(255, 85, 85, 0.25);
+}
+
+.cta-content small {
+  display: block;
+  margin-top: 16px;
+
+  color: #6f7782;
+  font-size: 11px;
+}
