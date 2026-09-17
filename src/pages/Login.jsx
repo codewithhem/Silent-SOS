@@ -1,6 +1,58 @@
+import { useState } from "react";
 import "./Login.css";
 
 function Login() {
+    const [email, setEmail] = useState("");
+    const [password, setPassword] = useState("");
+    const [message, setMessage] = useState("");
+    const [loading, setLoading] = useState(false);
+
+    const handleLogin = async (e) => {
+        e.preventDefault();
+
+        setMessage("");
+        setLoading(true);
+
+        try {
+            const response = await fetch(
+                "http://localhost:5000/api/auth/login",
+                {
+                    method: "POST",
+                    headers: {
+                        "Content-Type": "application/json",
+                    },
+                    body: JSON.stringify({
+                        email,
+                        password,
+                    }),
+                }
+            );
+
+            const data = await response.json();
+
+            if (!response.ok) {
+                setMessage(data.message);
+                setLoading(false);
+                return;
+            }
+
+            // Save logged-in user
+            localStorage.setItem("user", JSON.stringify(data.user));
+            localStorage.setItem("token", data.token);
+            setMessage("Login successful!");
+
+            setTimeout(() => {
+                window.location.href = "/";
+            }, 500);
+
+        } catch (error) {
+            console.log("Login error:", error);
+            setMessage("Unable to connect to server.");
+        }
+
+        setLoading(false);
+    };
+
     return (
         <div className="login-page">
             <div className="login-glow"></div>
@@ -20,10 +72,7 @@ function Login() {
 
                 <form
                     className="login-form"
-                    onSubmit={(e) => {
-                        e.preventDefault();
-                        window.location.href = "/";
-                    }}
+                    onSubmit={handleLogin}
                 >
                     <div className="input-group">
                         <label htmlFor="email">Email</label>
@@ -34,6 +83,9 @@ function Login() {
                             name="email"
                             placeholder="you@example.com"
                             autoComplete="email"
+                            value={email}
+                            onChange={(e) => setEmail(e.target.value)}
+                            required
                         />
                     </div>
 
@@ -46,6 +98,9 @@ function Login() {
                             name="password"
                             placeholder="Enter your password"
                             autoComplete="current-password"
+                            value={password}
+                            onChange={(e) => setPassword(e.target.value)}
+                            required
                         />
                     </div>
 
@@ -60,9 +115,19 @@ function Login() {
                         </a>
                     </div>
 
-                    <button type="submit" className="login-btn">
-                        Sign In
-                        <span>→</span>
+                    {message && (
+                        <p className="login-message">
+                            {message}
+                        </p>
+                    )}
+
+                    <button
+                        type="submit"
+                        className="login-btn"
+                        disabled={loading}
+                    >
+                        {loading ? "Signing In..." : "Sign In"}
+                        {!loading && <span>→</span>}
                     </button>
                 </form>
 

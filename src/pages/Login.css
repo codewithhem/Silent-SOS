@@ -388,3 +388,8 @@
     gap: 12px;
   }
 }
+.login-message {
+    margin: 10px 0;
+    text-align: center;
+    font-size: 14px;
+}

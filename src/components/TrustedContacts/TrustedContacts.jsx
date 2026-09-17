@@ -6,14 +6,32 @@ function TrustedContacts() {
   const [phone, setPhone] = useState("");
   const [contacts, setContacts] = useState([]);
 
-  useEffect(() => {
-    const savedContacts = localStorage.getItem("trustedContacts");
+  const user = JSON.parse(localStorage.getItem("user"));
+  const token = localStorage.getItem("token");
 
-    if (savedContacts) {
-      setContacts(JSON.parse(savedContacts));
+  // GET CONTACTS
+  const getContacts = async () => {
+    try {
+      const response = await fetch(
+        `http://localhost:5000/api/contacts/${user.id}`,
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      );
+
+      const data = await response.json();
+
+      if (data.success) {
+        setContacts(data.contacts);
+      }
+    } catch (error) {
+      console.log("Get contacts error:", error);
     }
-  }, []);
+  };
 
+  // PHONE CONTACT PICKER
   const pickContact = async () => {
     if (!("contacts" in navigator)) {
       alert("Contact picker is not supported on this device.");
@@ -23,7 +41,9 @@ function TrustedContacts() {
     try {
       const selectedContacts = await navigator.contacts.select(
         ["name", "tel"],
-        { multiple: false }
+        {
+          multiple: false,
+        }
       );
 
       if (selectedContacts.length > 0) {
@@ -35,7 +55,14 @@ function TrustedContacts() {
     }
   };
 
-  const addContact = (e) => {
+  useEffect(() => {
+    if (user && token) {
+      getContacts();
+    }
+  }, []);
+
+  // ADD CONTACT
+  const addContact = async (e) => {
     e.preventDefault();
 
     if (!name || !phone) {
@@ -43,114 +70,193 @@ function TrustedContacts() {
       return;
     }
 
-    const newContact = {
-      id: Date.now(),
-      name: name,
-      phone: phone,
-    };
+    try {
+      const response = await fetch(
+        `http://localhost:5000/api/contacts/${user.id}`,
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${token}`,
+          },
+          body: JSON.stringify({
+            name,
+            phone,
+          }),
+        }
+      );
 
-    const updatedContacts = [...contacts, newContact];
+      const data = await response.json();
 
-    setContacts(updatedContacts);
+      if (data.success) {
+        setContacts(data.contacts);
 
-    localStorage.setItem(
-      "trustedContacts",
-      JSON.stringify(updatedContacts)
-    );
-
-    setName("");
-    setPhone("");
+        setName("");
+        setPhone("");
+      } else {
+        alert(data.message);
+      }
+    } catch (error) {
+      console.log("Add contact error:", error);
+    }
   };
 
-  const deleteContact = (id) => {
-    const updatedContacts = contacts.filter(
-      (contact) => contact.id !== id
-    );
+  // DELETE CONTACT
+  const deleteContact = async (contactId) => {
+    try {
+      const response = await fetch(
+        `http://localhost:5000/api/contacts/${user.id}/${contactId}`,
+        {
+          method: "DELETE",
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      );
 
-    setContacts(updatedContacts);
+      const data = await response.json();
 
-    localStorage.setItem(
-      "trustedContacts",
-      JSON.stringify(updatedContacts)
-    );
+      if (data.success) {
+        setContacts(data.contacts);
+      } else {
+        alert(data.message);
+      }
+    } catch (error) {
+      console.log("Delete contact error:", error);
+    }
   };
 
   return (
-    <section className="trusted-contacts">
+    <div className="trusted-contacts-page">
 
-      <div className="section-heading">
-        <span>EMERGENCY NETWORK</span>
+      <div className="trusted-contacts-header">
+        <span className="trusted-badge">
+          YOUR SAFETY NETWORK
+        </span>
 
-        <h2>Trusted Contacts</h2>
+        <h1>
+          Trusted <span>Contacts</span>
+        </h1>
 
         <p>
-          Add people who should receive your emergency alert.
+          Add people you trust so they can be contacted during
+          an emergency.
         </p>
       </div>
 
-      <div className="contact-card">
+      <div className="trusted-contacts-container">
 
-        <button
-          type="button"
-          className="contact-picker-btn"
-          onClick={pickContact}
-        >
-          Select from Phone Contacts
-        </button>
+        {/* ADD CONTACT */}
 
-        <form
-          className="contact-input"
-          onSubmit={addContact}
-        >
+        <div className="add-contact-card">
 
-          <input
-            type="text"
-            placeholder="Contact name"
-            value={name}
-            onChange={(e) => setName(e.target.value)}
-          />
+          <h2>Add Trusted Contact</h2>
 
-          <input
-            type="tel"
-            placeholder="Phone number"
-            value={phone}
-            onChange={(e) => setPhone(e.target.value)}
-          />
+          <p>
+            Keep your emergency contacts ready when you need help.
+          </p>
 
-          <button type="submit">
-            Add Contact
+          <button
+            type="button"
+            className="contact-picker-btn"
+            onClick={pickContact}
+          >
+            Choose From Phone Contacts
           </button>
 
-        </form>
+          <form onSubmit={addContact}>
 
-        <div className="contact-list">
+            <div className="input-group">
+              <label>Name</label>
 
-          {contacts.map((contact) => (
-            <div
-              className="contact-item"
-              key={contact.id}
-            >
+              <input
+                type="text"
+                placeholder="Contact name"
+                value={name}
+                onChange={(e) => setName(e.target.value)}
+              />
+            </div>
 
-              <div>
-                <h3>{contact.name}</h3>
-                <p>{contact.phone}</p>
-              </div>
+            <div className="input-group">
+              <label>Phone Number</label>
 
-              <button
-                className="delete-btn"
-                onClick={() => deleteContact(contact.id)}
-              >
-                Delete
-              </button>
+              <input
+                type="tel"
+                placeholder="Phone number"
+                value={phone}
+                onChange={(e) => setPhone(e.target.value)}
+              />
+            </div>
+
+            <button type="submit">
+              Add Contact
+            </button>
+
+          </form>
+
+        </div>
+
+        {/* SAVED CONTACTS */}
+
+        <div className="saved-contacts-card">
+
+          <div className="saved-contacts-heading">
+
+            <h2>Your Contacts</h2>
+
+            <span>{contacts.length}</span>
+
+          </div>
+
+          {contacts.length === 0 ? (
+
+            <div className="no-contacts">
+
+              <p>No trusted contacts added yet.</p>
+
+              <span>
+                Add at least one contact for emergency alerts.
+              </span>
 
             </div>
-          ))}
+
+          ) : (
+
+            <div className="contacts-list">
+
+              {contacts.map((contact) => (
+
+                <div
+                  className="contact-item"
+                  key={contact._id}
+                >
+
+                  <div>
+                    <strong>{contact.name}</strong>
+
+                    <p>{contact.phone}</p>
+                  </div>
+
+                  <button
+                    type="button"
+                    onClick={() => deleteContact(contact._id)}
+                  >
+                    Remove
+                  </button>
+
+                </div>
+
+              ))}
+
+            </div>
+
+          )}
 
         </div>
 
       </div>
 
-    </section>
+    </div>
   );
 }
 

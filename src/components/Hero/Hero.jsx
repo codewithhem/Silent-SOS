@@ -9,25 +9,56 @@ function Hero() {
   const [emergencyData, setEmergencyData] = useState(null);
 
   const handleSOS = () => {
+    const user = localStorage.getItem("user");
+
+    if (!user) {
+      window.location.href = "/login";
+      return;
+    }
+
     setShowConfirm(true);
     setSosStatus("");
   };
 
-  const confirmSOS = () => {
+  const confirmSOS = async () => {
     setShowConfirm(false);
     setSosStatus("Getting your location...");
 
-    const savedContacts = localStorage.getItem("trustedContacts");
+    const user = JSON.parse(localStorage.getItem("user"));
+    const token = localStorage.getItem("token");
 
-    if (!savedContacts) {
-      setSosStatus("Please add a trusted contact first.");
+    if (!user || !token) {
+      window.location.href = "/login";
       return;
     }
 
-    const contacts = JSON.parse(savedContacts);
+    let contacts = [];
 
-    if (contacts.length === 0) {
-      setSosStatus("Please add a trusted contact first.");
+    try {
+      const response = await fetch(
+        `http://localhost:5000/api/contacts/${user.id}`,
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      );
+
+      const data = await response.json();
+
+      if (!response.ok) {
+        throw new Error(data.message || "Unable to load contacts.");
+      }
+
+      if (!data.success || data.contacts.length === 0) {
+        setSosStatus("Please add a trusted contact first.");
+        return;
+      }
+
+      contacts = data.contacts;
+    } catch (error) {
+      console.log("Get contacts error:", error);
+      setSosStatus("Unable to load trusted contacts.");
       return;
     }
 
@@ -37,7 +68,7 @@ function Hero() {
     }
 
     navigator.geolocation.getCurrentPosition(
-      (position) => {
+      async (position) => {
         const { latitude, longitude } = position.coords;
 
         const location = {
@@ -45,16 +76,52 @@ function Hero() {
           longitude,
         };
 
-        setEmergencyData({
-          contact: contacts,
-          location: location,
-        });
+        try {
+          setSosStatus("Sending emergency alert...");
 
-        setShowEmergency(true);
-        setSosStatus("");
+          const response = await fetch(
+            "http://localhost:5000/api/sos",
+            {
+              method: "POST",
+              headers: {
+                "Content-Type": "application/json",
+                Authorization: `Bearer ${token}`,
+              },
+              body: JSON.stringify({
+                contacts,
+                location,
+              }),
+            }
+          );
+
+          const data = await response.json();
+
+          if (!response.ok) {
+            throw new Error(
+              data.message || "Emergency request failed"
+            );
+          }
+
+          console.log("Backend response:", data);
+
+          setEmergencyData({
+            contacts,
+            location,
+          });
+
+          setShowEmergency(true);
+          setSosStatus("");
+        } catch (error) {
+          console.log("Backend error:", error);
+          setSosStatus(
+            "Unable to connect to emergency server."
+          );
+        }
       },
       () => {
-        setSosStatus("Please allow location access to use SOS.");
+        setSosStatus(
+          "Please allow location access to use SOS."
+        );
       }
     );
   };
@@ -67,9 +134,7 @@ function Hero() {
 
   return (
     <section className="hero">
-
       <div className="hero-content">
-
         <div className="status-badge">
           <span className="status-dot"></span>
           Safety when you need it most
@@ -87,7 +152,6 @@ function Hero() {
         </p>
 
         <div className="hero-actions">
-
           <button
             className="primary-btn"
             onClick={handleSOS}
@@ -99,7 +163,6 @@ function Hero() {
           <button className="secondary-btn">
             See How It Works
           </button>
-
         </div>
 
         {sosStatus && (
@@ -107,50 +170,40 @@ function Hero() {
             {sosStatus}
           </p>
         )}
-
       </div>
 
       <div className="hero-card">
-
         <div className="card-header">
-
           <div>
             <small>EMERGENCY STATUS</small>
             <h3>Safety Network</h3>
           </div>
 
           <div className="radar">
-
             <div className="ring ring1"></div>
             <div className="ring ring2"></div>
             <div className="ring ring3"></div>
 
             <div className="location-dot"></div>
-
           </div>
 
           <span className="live">● LIVE</span>
-
         </div>
-
       </div>
 
       {showConfirm && (
         <div className="sos-overlay">
-
           <div className="sos-modal">
-
             <span className="modal-icon">!</span>
 
             <h2>Activate Emergency SOS?</h2>
 
             <p>
               Your current location will be shared with
-              your trusted contact.
+              your trusted contacts.
             </p>
 
             <div className="modal-actions">
-
               <button
                 className="cancel-btn"
                 onClick={() => setShowConfirm(false)}
@@ -164,22 +217,18 @@ function Hero() {
               >
                 Confirm SOS
               </button>
-
             </div>
-
           </div>
-
         </div>
       )}
 
       {showEmergency && emergencyData && (
         <EmergencyAlert
-          contact={emergencyData.contact}
+          contacts={emergencyData.contacts}
           location={emergencyData.location}
           onCancel={cancelEmergency}
         />
       )}
-
     </section>
   );
 }
