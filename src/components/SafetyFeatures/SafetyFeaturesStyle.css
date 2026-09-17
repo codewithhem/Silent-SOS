@@ -1,64 +1,173 @@
+/* =========================
+   SAFETY FEATURES
+   ========================= */
+
 .safety-features {
   max-width: 1200px;
+
   margin: 0 auto;
+
   padding: 100px 24px;
+
+  position: relative;
 }
+
+
+/* =========================
+   FEATURE GRID
+   ========================= */
 
 .feature-grid {
   display: grid;
+
   grid-template-columns: repeat(3, 1fr);
+
   gap: 18px;
 }
 
+
+/* =========================
+   FEATURE CARD
+   ========================= */
+
 .feature-card {
-  padding: 26px;
   min-height: 200px;
 
-  background: rgba(255, 255, 255, 0.04);
+  padding: 28px;
+
+  background: rgba(255, 255, 255, 0.035);
+
   border: 1px solid rgba(255, 255, 255, 0.08);
+
   border-radius: 18px;
 
-  transition: 0.3s ease;
+  backdrop-filter: blur(12px);
+
+  transition:
+    border-color 0.25s ease,
+    background 0.25s ease,
+    transform 0.25s ease;
+
+  position: relative;
+
+  overflow: hidden;
 }
 
-.feature-card:hover {
-  transform: translateY(-5px);
-  border-color: rgba(255, 85, 85, 0.3);
-  background: rgba(255, 255, 255, 0.055);
+
+/* SUBTLE CARD GLOW */
+
+.feature-card::before {
+  content: "";
+
+  position: absolute;
+
+  top: -100px;
+  right: -100px;
+
+  width: 220px;
+  height: 220px;
+
+  background: rgba(255, 70, 70, 0.045);
+
+  filter: blur(70px);
+
+  border-radius: 50%;
+
+  pointer-events: none;
 }
+
+
+/* HOVER */
+
+.feature-card:hover {
+  transform: translateY(-4px);
+
+  border-color: rgba(255, 85, 85, 0.2);
+
+  background: rgba(255, 255, 255, 0.045);
+}
+
+
+/* =========================
+   FEATURE ICON
+   ========================= */
 
 .feature-icon {
   width: 40px;
   height: 40px;
 
   display: flex;
+
   align-items: center;
   justify-content: center;
 
   border-radius: 10px;
 
-  background: rgba(255, 85, 85, 0.08);
+  background: rgba(255, 85, 85, 0.07);
+
   border: 1px solid rgba(255, 85, 85, 0.18);
 
   color: #ff5555;
+
   font-size: 12px;
+
   font-weight: 600;
+
+  position: relative;
 }
+
+
+/* =========================
+   FEATURE TITLE
+   ========================= */
 
 .feature-card h3 {
-  margin-top: 28px;
+  margin: 28px 0 0;
 
   color: #f5f5f5;
+
   font-size: 19px;
+
+  font-weight: 600;
+
+  letter-spacing: -0.3px;
+
+  position: relative;
 }
+
+
+/* =========================
+   FEATURE DESCRIPTION
+   ========================= */
 
 .feature-card p {
-  margin-top: 10px;
+  margin: 10px 0 0;
 
   color: #858d99;
-  font-size: 14px;
-  line-height: 1.6;
+
+  font-size: 13px;
+
+  line-height: 1.7;
+
+  position: relative;
 }
+
+
+/* =========================
+   TABLET
+   ========================= */
+
+@media (max-width: 900px) {
+  .feature-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+
+/* =========================
+   MOBILE
+   ========================= */
+
 @media (max-width: 768px) {
   .safety-features {
     padding: 70px 20px;
@@ -66,21 +175,42 @@
 
   .feature-grid {
     grid-template-columns: 1fr;
+
     gap: 14px;
   }
 
   .feature-card {
     min-height: auto;
+
     padding: 22px;
   }
 
   .feature-card h3 {
     margin-top: 20px;
+
     font-size: 18px;
   }
 
   .feature-card p {
-    font-size: 14px;
-    line-height: 1.5;
+    font-size: 13px;
+
+    line-height: 1.6;
+  }
+}
+
+
+/* =========================
+   SMALL MOBILE
+   ========================= */
+
+@media (max-width: 500px) {
+  .safety-features {
+    padding: 55px 5%;
+  }
+
+  .feature-card {
+    padding: 20px;
+
+    border-radius: 16px;
   }
 }

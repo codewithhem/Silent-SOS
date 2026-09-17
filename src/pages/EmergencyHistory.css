@@ -1,204 +1,382 @@
+/* =========================
+   EMERGENCY HISTORY PAGE
+   ========================= */
+
 .emergency-history-page {
   min-height: calc(100vh - 80px);
+
   padding: 90px 7%;
+
   background: #050505;
+
   color: #ffffff;
+
   position: relative;
+
   overflow: hidden;
 }
 
+
+/* BACKGROUND GLOW */
+
 .emergency-history-page::before {
   content: "";
+
   position: absolute;
+
   top: -180px;
   right: -180px;
+
   width: 450px;
   height: 450px;
+
   background: rgba(255, 70, 70, 0.08);
+
   filter: blur(100px);
+
   border-radius: 50%;
+
   pointer-events: none;
 }
 
+
+/* =========================
+   HEADER
+   ========================= */
+
 .emergency-history-header {
   max-width: 760px;
+
   margin-bottom: 50px;
+
   position: relative;
+
   z-index: 1;
 }
 
+
+/* BADGE */
+
 .history-badge {
   display: inline-flex;
+
+  align-items: center;
+
   padding: 8px 14px;
+
   margin-bottom: 20px;
+
   border: 1px solid rgba(255, 255, 255, 0.1);
+
   border-radius: 30px;
+
   background: rgba(255, 255, 255, 0.03);
+
   color: #8b929d;
+
   font-size: 11px;
+
   font-weight: 600;
+
   letter-spacing: 2px;
 }
 
 .history-badge::before {
   content: "";
+
   width: 6px;
   height: 6px;
+
   margin-right: 8px;
-  margin-top: 1px;
+
   background: #ff5555;
+
   border-radius: 50%;
+
   box-shadow: 0 0 10px rgba(255, 85, 85, 0.8);
 }
 
+
+/* TITLE */
+
 .emergency-history-header h1 {
   margin: 0;
+
+  color: #f5f5f5;
+
   font-size: clamp(42px, 5vw, 64px);
+
   line-height: 1.05;
+
   letter-spacing: -2px;
+
+  font-weight: 700;
 }
 
 .emergency-history-header h1 span {
   color: #ff5555;
 }
 
+
+/* DESCRIPTION */
+
 .emergency-history-header p {
   max-width: 600px;
+
   margin-top: 20px;
+
   color: #858d99;
+
   font-size: 15px;
+
   line-height: 1.8;
 }
 
+
+/* =========================
+   HISTORY CONTAINER
+   ========================= */
+
 .emergency-history-container {
   max-width: 900px;
+
   position: relative;
+
   z-index: 1;
 }
 
+
+/* =========================
+   EMPTY STATE
+   ========================= */
+
 .history-empty {
   padding: 55px 20px;
+
   text-align: center;
+
   border: 1px dashed rgba(255, 255, 255, 0.1);
+
   border-radius: 15px;
+
   background: rgba(255, 255, 255, 0.02);
 }
 
 .history-empty p {
   margin: 0 0 8px;
+
   color: #c5c9cf;
+
   font-size: 14px;
 }
 
 .history-empty span {
   color: #666d77;
+
   font-size: 12px;
 }
 
+
+/* =========================
+   HISTORY LIST
+   ========================= */
+
 .history-list {
   display: flex;
+
   flex-direction: column;
+
   gap: 15px;
 }
 
+
+/* =========================
+   HISTORY CARD
+   ========================= */
+
 .history-card {
   padding: 25px;
+
   background: rgba(255, 255, 255, 0.035);
+
   border: 1px solid rgba(255, 255, 255, 0.08);
-  border-radius: 16px;
-  transition: 0.2s ease;
+
+  border-radius: 18px;
+
+  backdrop-filter: blur(12px);
+
+  transition: 0.25s ease;
 }
 
 .history-card:hover {
   border-color: rgba(255, 85, 85, 0.2);
+
+  transform: translateY(-1px);
 }
+
+
+/* =========================
+   CARD TOP
+   ========================= */
 
 .history-card-top {
   display: flex;
+
   justify-content: space-between;
+
   align-items: flex-start;
+
   gap: 20px;
 }
 
+
+/* STATUS */
+
 .history-status {
   color: #ff5555;
+
   font-size: 10px;
+
   font-weight: 600;
+
   letter-spacing: 1.5px;
 }
 
 .history-card h2 {
   margin: 8px 0 0;
+
   color: #f5f5f5;
+
   font-size: 18px;
+
+  font-weight: 600;
 }
 
 .history-date {
   color: #737b87;
+
   font-size: 11px;
+
   text-align: right;
 }
 
+
+/* =========================
+   DETAILS
+   ========================= */
+
 .history-details {
   display: grid;
+
   grid-template-columns: 1fr 1fr;
+
   gap: 15px;
+
   margin-top: 25px;
 }
 
 .history-details > div {
   padding: 14px;
+
   background: rgba(255, 255, 255, 0.025);
+
+  border: 1px solid rgba(255, 255, 255, 0.04);
+
   border-radius: 10px;
 }
 
 .history-details span {
   display: block;
+
   margin-bottom: 6px;
+
   color: #626a75;
+
   font-size: 10px;
+
+  font-weight: 500;
+
   letter-spacing: 1.2px;
 }
 
 .history-details p {
   margin: 0;
+
   color: #c5c9cf;
+
   font-size: 13px;
 }
 
+
+/* =========================
+   LOCATION BUTTON
+   ========================= */
+
 .history-location-btn {
   margin-top: 18px;
+
   padding: 10px 14px;
+
   border: 1px solid rgba(255, 85, 85, 0.25);
-  border-radius: 8px;
-  background: transparent;
+
+  border-radius: 9px;
+
+  background: rgba(255, 85, 85, 0.03);
+
   color: #ff5555;
+
+  font-family: inherit;
+
   font-size: 12px;
+
   cursor: pointer;
+
   transition: 0.2s ease;
 }
 
 .history-location-btn:hover {
   background: rgba(255, 85, 85, 0.08);
+
   border-color: rgba(255, 85, 85, 0.4);
+
+  transform: translateY(-1px);
 }
+
+
+/* =========================
+   MOBILE
+   ========================= */
 
 @media (max-width: 600px) {
   .emergency-history-page {
+    min-height: calc(100vh - 60px);
+
     padding: 60px 5%;
+  }
+
+  .emergency-history-header {
+    margin-bottom: 35px;
   }
 
   .emergency-history-header h1 {
     font-size: 40px;
+
     letter-spacing: -1.5px;
+  }
+
+  .emergency-history-header p {
+    font-size: 14px;
   }
 
   .history-card {
     padding: 20px;
+
+    border-radius: 16px;
   }
 
   .history-card-top {
     flex-direction: column;
+
     gap: 10px;
   }
 
@@ -208,5 +386,7 @@
 
   .history-details {
     grid-template-columns: 1fr;
+
+    gap: 10px;
   }
 }

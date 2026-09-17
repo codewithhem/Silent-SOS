@@ -1,48 +1,82 @@
 .emergency-cta {
   max-width: 1200px;
   margin: 40px auto 100px;
-  padding: 70px 24px;
+  padding: 80px 24px;
 
   text-align: center;
 
-  border: 1px solid rgba(255, 85, 85, 0.15);
-  border-radius: 24px;
+  background: rgba(255, 255, 255, 0.035);
+  border: 1px solid rgba(255, 85, 85, 0.16);
+  border-radius: 22px;
 
-  background: linear-gradient(
-    135deg,
-    rgba(255, 85, 85, 0.08),
-    rgba(255, 255, 255, 0.03)
-  );
+  backdrop-filter: blur(12px);
+
+  position: relative;
+  overflow: hidden;
 }
+
+/* SUBTLE RED GLOW */
+
+.emergency-cta::before {
+  content: "";
+  position: absolute;
+  top: -140px;
+  left: 50%;
+  transform: translateX(-50%);
+
+  width: 420px;
+  height: 260px;
+
+  background: rgba(255, 70, 70, 0.07);
+  filter: blur(90px);
+  border-radius: 50%;
+
+  pointer-events: none;
+}
+
+/* CONTENT */
 
 .cta-content {
   max-width: 620px;
   margin: 0 auto;
+  position: relative;
+  z-index: 1;
 }
 
+/* BADGE */
+
 .cta-content > span {
+  display: inline-block;
+
   color: #ff5555;
   font-size: 12px;
   font-weight: 600;
   letter-spacing: 1.5px;
 }
 
+/* HEADING */
+
 .cta-content h2 {
-  margin-top: 14px;
+  margin: 14px 0 0;
 
   color: #f5f5f5;
   font-size: 48px;
   line-height: 1.1;
+  letter-spacing: -1.5px;
 }
+
+/* DESCRIPTION */
 
 .cta-content p {
   max-width: 500px;
   margin: 20px auto 30px;
 
-  color: #9299a5;
+  color: #858d99;
   font-size: 15px;
-  line-height: 1.6;
+  line-height: 1.7;
 }
+
+/* SOS BUTTON */
 
 .sos-button {
   width: 150px;
@@ -52,20 +86,30 @@
   border-radius: 10px;
 
   background: #ff5555;
-  color: white;
+  color: #ffffff;
 
   font-size: 14px;
   font-weight: 700;
 
   cursor: pointer;
 
-  transition: 0.25s ease;
+  transition:
+    transform 0.25s ease,
+    box-shadow 0.25s ease,
+    background 0.25s ease;
 }
 
 .sos-button:hover {
   transform: translateY(-3px);
+  background: #ff6262;
   box-shadow: 0 12px 30px rgba(255, 85, 85, 0.25);
 }
+
+.sos-button:active {
+  transform: translateY(-1px);
+}
+
+/* SMALL PRIVACY TEXT */
 
 .cta-content small {
   display: block;
@@ -73,4 +117,49 @@
 
   color: #6f7782;
   font-size: 11px;
+  line-height: 1.5;
+}
+
+/* TABLET */
+
+@media (max-width: 768px) {
+  .emergency-cta {
+    margin: 30px 20px 70px;
+    padding: 65px 22px;
+    border-radius: 18px;
+  }
+
+  .cta-content h2 {
+    font-size: 40px;
+    line-height: 1.05;
+  }
+
+  .cta-content p {
+    font-size: 14px;
+    line-height: 1.6;
+  }
+}
+
+/* SMALL MOBILE */
+
+@media (max-width: 500px) {
+  .emergency-cta {
+    margin: 25px 5% 55px;
+    padding: 55px 20px;
+    border-radius: 16px;
+  }
+
+  .cta-content h2 {
+    font-size: 34px;
+  }
+
+  .cta-content p {
+    margin-top: 16px;
+    margin-bottom: 26px;
+  }
+
+  .sos-button {
+    width: 140px;
+    height: 50px;
+  }
 }

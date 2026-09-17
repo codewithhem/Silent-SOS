@@ -1,3 +1,7 @@
+/* =========================
+   EMERGENCY OVERLAY
+   ========================= */
+
 .emergency-overlay {
   position: fixed;
   inset: 0;
@@ -8,10 +12,17 @@
 
   padding: 20px;
 
-  background: rgba(0, 0, 0, 0.8);
+  background: rgba(0, 0, 0, 0.82);
+
+  backdrop-filter: blur(8px);
 
   z-index: 2000;
 }
+
+
+/* =========================
+   EMERGENCY CARD
+   ========================= */
 
 .emergency-card {
   width: 100%;
@@ -19,204 +30,464 @@
 
   padding: 30px;
 
-  background: #15171b;
-  border: 1px solid rgba(255, 85, 85, 0.3);
+  background: rgba(15, 15, 15, 0.96);
+
+  border: 1px solid rgba(255, 85, 85, 0.25);
+
   border-radius: 20px;
 
+  box-shadow:
+    0 25px 80px rgba(0, 0, 0, 0.55),
+    0 0 40px rgba(255, 85, 85, 0.06);
+
   text-align: center;
+
+  position: relative;
+
+  overflow: hidden;
 }
+
+
+/* SUBTLE RED GLOW */
+
+.emergency-card::before {
+  content: "";
+
+  position: absolute;
+
+  top: -120px;
+  left: 50%;
+
+  width: 280px;
+  height: 280px;
+
+  transform: translateX(-50%);
+
+  background: rgba(255, 70, 70, 0.08);
+
+  filter: blur(80px);
+
+  border-radius: 50%;
+
+  pointer-events: none;
+}
+
+
+/* =========================
+   STATUS
+   ========================= */
 
 .emergency-status {
   display: inline-flex;
+
   align-items: center;
+
   gap: 8px;
 
   color: #ff5555;
-  font-size: 12px;
+
+  font-size: 11px;
+
   font-weight: 700;
-  letter-spacing: 1px;
+
+  letter-spacing: 1.5px;
+
+  position: relative;
+
+  z-index: 1;
 }
 
 .emergency-dot {
-  width: 8px;
-  height: 8px;
+  width: 7px;
+  height: 7px;
 
   border-radius: 50%;
+
   background: #ff5555;
 
-  box-shadow: 0 0 12px rgba(255, 85, 85, 0.8);
+  box-shadow:
+    0 0 8px rgba(255, 85, 85, 0.8),
+    0 0 16px rgba(255, 85, 85, 0.3);
 }
 
+
+/* =========================
+   TITLE
+   ========================= */
+
 .emergency-card h2 {
-  margin-top: 18px;
+  margin: 18px 0 0;
 
   color: #f5f5f5;
+
   font-size: 24px;
+
+  font-weight: 700;
+
+  letter-spacing: -0.5px;
+
+  position: relative;
+
+  z-index: 1;
 }
 
 .emergency-card > p {
-  margin-top: 10px;
+  margin: 10px 0 0;
 
   color: #858d99;
-  font-size: 14px;
-  line-height: 1.6;
-}
 
-.emergency-details {
-  margin-top: 25px;
-
-  display: flex;
-  flex-direction: column;
-  gap: 10px;
-}
-
-.emergency-details div {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-
-  padding: 14px;
-
-  background: rgba(255, 255, 255, 0.04);
-  border-radius: 10px;
-}
-
-.emergency-details span {
-  color: #737b87;
-  font-size: 10px;
-  letter-spacing: 1px;
-}
-
-.emergency-details strong {
-  color: #f5f5f5;
   font-size: 13px;
+
+  line-height: 1.7;
+
+  position: relative;
+
+  z-index: 1;
 }
 
-.cancel-emergency-btn {
-  width: 100%;
-  margin-top: 25px;
-  padding: 13px;
 
-  border: 1px solid rgba(255, 255, 255, 0.1);
-  border-radius: 9px;
+/* =========================
+   COUNTDOWN
+   ========================= */
 
-  background: transparent;
-  color: #d7dbe0;
-
-  cursor: pointer;
-}
-
-.cancel-emergency-btn:hover {
-  border-color: rgba(255, 85, 85, 0.4);
-  color: #ff5555;
-}
-.whatsapp-btn {
-  width: 100%;
-  margin-top: 25px;
-  padding: 13px;
-
-  border: none;
-  border-radius: 9px;
-
-  background: #45df9a;
-  color: #101214;
-
-  cursor: pointer;
-  font-weight: 700;
-}
-
-.whatsapp-btn:hover {
-  opacity: 0.9;
-}
-
-.cancel-emergency-btn {
-  margin-top: 10px;
-}
-.sms-btn {
-  width: 100%;
-  margin-top: 10px;
-  padding: 13px;
-
-  border: 1px solid rgba(255, 255, 255, 0.1);
-  border-radius: 9px;
-
-  background: rgba(255, 255, 255, 0.05);
-  color: #f5f5f5;
-
-  cursor: pointer;
-  font-weight: 600;
-}
-
-.sms-btn:hover {
-  background: rgba(255, 255, 255, 0.08);
-}
-
-.cancel-emergency-btn {
-  width: 100%;
-  margin-top: 10px;
-}
-.emergency-contact-list {
-  margin-top: 15px;
-
-  display: flex;
-  flex-direction: column;
-  gap: 8px;
-}
-
-.emergency-contact {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-
-  padding: 11px 13px;
-
-  background: rgba(255, 255, 255, 0.03);
-  border-radius: 8px;
-}
-
-.emergency-contact span {
-  color: #f5f5f5;
-  font-size: 13px;
-}
-
-.emergency-contact small {
-  color: #737b87;
-  font-size: 11px;
-}
 .countdown-circle {
   width: 75px;
   height: 75px;
 
   display: flex;
+
   align-items: center;
   justify-content: center;
 
   margin: 0 auto 20px;
 
   border: 2px solid #ff5555;
+
   border-radius: 50%;
 
+  background: rgba(255, 85, 85, 0.04);
+
   color: #ff5555;
+
   font-size: 28px;
+
   font-weight: 700;
 
-  box-shadow: 0 0 25px rgba(255, 85, 85, 0.2);
+  box-shadow:
+    0 0 20px rgba(255, 85, 85, 0.15),
+    inset 0 0 20px rgba(255, 85, 85, 0.04);
 }
-.location-btn {
-  width: 100%;
-  margin-top: 10px;
-  padding: 13px;
 
-  border: 1px solid rgba(255, 255, 255, 0.1);
-  border-radius: 9px;
 
-  background: rgba(255, 255, 255, 0.05);
+/* =========================
+   EMERGENCY DETAILS
+   ========================= */
+
+.emergency-details {
+  margin-top: 25px;
+
+  display: flex;
+
+  flex-direction: column;
+
+  gap: 10px;
+
+  position: relative;
+
+  z-index: 1;
+}
+
+.emergency-details div {
+  display: flex;
+
+  align-items: center;
+
+  justify-content: space-between;
+
+  gap: 15px;
+
+  padding: 14px;
+
+  background: rgba(255, 255, 255, 0.035);
+
+  border: 1px solid rgba(255, 255, 255, 0.05);
+
+  border-radius: 10px;
+}
+
+.emergency-details span {
+  color: #737b87;
+
+  font-size: 10px;
+
+  letter-spacing: 1px;
+}
+
+.emergency-details strong {
   color: #f5f5f5;
 
-  cursor: pointer;
+  font-size: 13px;
+
   font-weight: 600;
 }
 
+
+/* =========================
+   CONTACT LIST
+   ========================= */
+
+.emergency-contact-list {
+  margin-top: 15px;
+
+  display: flex;
+
+  flex-direction: column;
+
+  gap: 8px;
+
+  position: relative;
+
+  z-index: 1;
+}
+
+.emergency-contact {
+  display: flex;
+
+  align-items: center;
+
+  justify-content: space-between;
+
+  gap: 12px;
+
+  padding: 11px 13px;
+
+  background: rgba(255, 255, 255, 0.025);
+
+  border: 1px solid rgba(255, 255, 255, 0.05);
+
+  border-radius: 9px;
+}
+
+.emergency-contact span {
+  color: #f5f5f5;
+
+  font-size: 13px;
+
+  font-weight: 500;
+}
+
+.emergency-contact small {
+  color: #737b87;
+
+  font-size: 11px;
+}
+
+
+/* =========================
+   LOCATION BUTTON
+   ========================= */
+
+.location-btn {
+  width: 100%;
+
+  margin-top: 10px;
+
+  padding: 13px;
+
+  border: 1px solid rgba(255, 255, 255, 0.1);
+
+  border-radius: 9px;
+
+  background: rgba(255, 255, 255, 0.035);
+
+  color: #f5f5f5;
+
+  font-family: inherit;
+
+  font-size: 13px;
+
+  font-weight: 600;
+
+  cursor: pointer;
+
+  transition: 0.2s ease;
+
+  position: relative;
+
+  z-index: 1;
+}
+
 .location-btn:hover {
-  background: rgba(255, 255, 255, 0.08);
+  background: rgba(255, 255, 255, 0.07);
+
+  border-color: rgba(255, 255, 255, 0.18);
+
+  transform: translateY(-1px);
+}
+
+
+/* =========================
+   WHATSAPP BUTTON
+   ========================= */
+
+.whatsapp-btn {
+  width: 100%;
+
+  margin-top: 18px;
+
+  padding: 13px;
+
+  border: none;
+
+  border-radius: 9px;
+
+  background: #45df9a;
+
+  color: #101214;
+
+  font-family: inherit;
+
+  font-size: 13px;
+
+  font-weight: 700;
+
+  cursor: pointer;
+
+  transition: 0.2s ease;
+
+  position: relative;
+
+  z-index: 1;
+}
+
+.whatsapp-btn:hover {
+  opacity: 0.9;
+
+  transform: translateY(-1px);
+
+  box-shadow: 0 8px 25px rgba(69, 223, 154, 0.12);
+}
+
+
+/* =========================
+   SMS BUTTON
+   ========================= */
+
+.sms-btn {
+  width: 100%;
+
+  margin-top: 10px;
+
+  padding: 13px;
+
+  border: 1px solid rgba(255, 255, 255, 0.1);
+
+  border-radius: 9px;
+
+  background: rgba(255, 255, 255, 0.035);
+
+  color: #f5f5f5;
+
+  font-family: inherit;
+
+  font-size: 13px;
+
+  font-weight: 600;
+
+  cursor: pointer;
+
+  transition: 0.2s ease;
+
+  position: relative;
+
+  z-index: 1;
+}
+
+.sms-btn:hover {
+  background: rgba(255, 255, 255, 0.07);
+
+  border-color: rgba(255, 255, 255, 0.18);
+
+  transform: translateY(-1px);
+}
+
+
+/* =========================
+   CANCEL BUTTON
+   ========================= */
+
+.cancel-emergency-btn {
+  width: 100%;
+
+  margin-top: 10px;
+
+  padding: 13px;
+
+  border: 1px solid rgba(255, 85, 85, 0.2);
+
+  border-radius: 9px;
+
+  background: transparent;
+
+  color: #aeb4bc;
+
+  font-family: inherit;
+
+  font-size: 13px;
+
+  font-weight: 600;
+
+  cursor: pointer;
+
+  transition: 0.2s ease;
+
+  position: relative;
+
+  z-index: 1;
+}
+
+.cancel-emergency-btn:hover {
+  background: rgba(255, 85, 85, 0.06);
+
+  border-color: rgba(255, 85, 85, 0.4);
+
+  color: #ff5555;
+
+  transform: translateY(-1px);
+}
+
+
+/* =========================
+   MOBILE
+   ========================= */
+
+@media (max-width: 500px) {
+  .emergency-overlay {
+    padding: 15px;
+  }
+
+  .emergency-card {
+    padding: 24px 20px;
+
+    border-radius: 18px;
+  }
+
+  .emergency-card h2 {
+    font-size: 22px;
+  }
+
+  .emergency-card > p {
+    font-size: 13px;
+  }
+
+  .countdown-circle {
+    width: 68px;
+    height: 68px;
+
+    font-size: 25px;
+  }
+
+  .emergency-details div {
+    padding: 13px;
+  }
 }

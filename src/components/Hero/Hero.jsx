@@ -1,12 +1,14 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import "./Hero.css";
 import EmergencyAlert from "../EmergencyAlert/EmergencyAlert";
+
 
 function Hero() {
   const [sosStatus, setSosStatus] = useState("");
   const [showConfirm, setShowConfirm] = useState(false);
   const [showEmergency, setShowEmergency] = useState(false);
   const [emergencyData, setEmergencyData] = useState(null);
+
 
   const handleSOS = () => {
     const user = localStorage.getItem("user");
@@ -19,6 +21,14 @@ function Hero() {
     setShowConfirm(true);
     setSosStatus("");
   };
+
+  useEffect(() => {
+  window.addEventListener("activate-sos", handleSOS);
+
+  return () => {
+    window.removeEventListener("activate-sos", handleSOS);
+  };
+}, []);
 
   const confirmSOS = async () => {
     setShowConfirm(false);

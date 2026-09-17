@@ -2,14 +2,18 @@
   max-width: 1200px;
   margin: 0 auto;
   padding: 100px 24px;
+  position: relative;
 }
 
+/* SECTION HEADING */
+
 .section-heading {
-  max-width: 600px;
+  max-width: 620px;
   margin-bottom: 50px;
 }
 
 .section-heading span {
+  display: inline-block;
   color: #ff5555;
   font-size: 12px;
   font-weight: 600;
@@ -17,40 +21,85 @@
 }
 
 .section-heading h2 {
-  margin-top: 12px;
+  margin: 12px 0 0;
   color: #f5f5f5;
   font-size: 46px;
   line-height: 1.1;
+  letter-spacing: -1.5px;
 }
 
 .section-heading p {
-  margin-top: 18px;
-  color: #9299a5;
-  font-size: 16px;
-  line-height: 1.6;
+  margin: 18px 0 0;
+  color: #858d99;
+  font-size: 15px;
+  line-height: 1.7;
 }
+
+/* STEPS */
 
 .steps {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
-  gap: 20px;
+  gap: 18px;
+  position: relative;
 }
+
+/* CONNECTING LINE */
+
+.steps::before {
+  content: "";
+  position: absolute;
+  top: 47px;
+  left: 16%;
+  right: 16%;
+  height: 1px;
+  background: rgba(255, 255, 255, 0.08);
+  z-index: 0;
+}
+
+/* STEP CARD */
 
 .step {
-  padding: 26px;
   min-height: 210px;
-
-  background: rgba(255, 255, 255, 0.04);
+  padding: 28px;
+  background: rgba(255, 255, 255, 0.035);
   border: 1px solid rgba(255, 255, 255, 0.08);
   border-radius: 18px;
+  backdrop-filter: blur(12px);
+  position: relative;
+  z-index: 1;
+  overflow: hidden;
 
-  transition: 0.3s ease;
+  transition:
+    transform 0.25s ease,
+    background 0.25s ease,
+    border-color 0.25s ease;
 }
+
+/* SUBTLE RED GLOW */
+
+.step::before {
+  content: "";
+  position: absolute;
+  top: -100px;
+  right: -100px;
+  width: 220px;
+  height: 220px;
+  background: rgba(255, 70, 70, 0.045);
+  filter: blur(70px);
+  border-radius: 50%;
+  pointer-events: none;
+}
+
+/* HOVER */
 
 .step:hover {
-  transform: translateY(-5px);
-  border-color: rgba(255, 85, 85, 0.35);
+  transform: translateY(-4px);
+  background: rgba(255, 255, 255, 0.045);
+  border-color: rgba(255, 85, 85, 0.2);
 }
+
+/* STEP ICON */
 
 .step-icon {
   width: 42px;
@@ -62,45 +111,51 @@
 
   border-radius: 10px;
 
-  background: rgba(255, 85, 85, 0.08);
-  border: 1px solid rgba(255, 85, 85, 0.2);
+  background: rgba(255, 85, 85, 0.07);
+  border: 1px solid rgba(255, 85, 85, 0.18);
 
   color: #ff5555;
   font-size: 12px;
   font-weight: 600;
+
+  position: relative;
 }
+
+/* TITLE */
 
 .step h3 {
-  margin-top: 32px;
+  margin: 28px 0 0;
   color: #f5f5f5;
-  font-size: 20px;
+  font-size: 19px;
+  font-weight: 600;
+  letter-spacing: -0.3px;
+  position: relative;
 }
+
+/* DESCRIPTION */
 
 .step p {
-  margin-top: 10px;
+  margin: 10px 0 0;
   color: #858d99;
-  font-size: 14px;
-  line-height: 1.6;
-}
-.steps {
+  font-size: 13px;
+  line-height: 1.7;
   position: relative;
 }
 
-.steps::before {
-  content: "";
-  position: absolute;
-  top: 47px;
-  left: 16%;
-  right: 16%;
-  height: 1px;
-  background: rgba(255, 255, 255, 0.1);
-  z-index: 0;
+/* TABLET */
+
+@media (max-width: 900px) {
+  .steps {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .steps::before {
+    display: none;
+  }
 }
 
-.step {
-  position: relative;
-  z-index: 1;
-}
+/* MOBILE */
+
 @media (max-width: 768px) {
   .how-it-works {
     padding: 70px 20px;
@@ -125,10 +180,6 @@
     gap: 14px;
   }
 
-  .steps::before {
-    display: none;
-  }
-
   .step {
     min-height: auto;
     padding: 22px;
@@ -136,6 +187,28 @@
 
   .step h3 {
     margin-top: 20px;
-    font-size: 19px;
+    font-size: 18px;
+  }
+
+  .step p {
+    font-size: 13px;
+    line-height: 1.6;
+  }
+}
+
+/* SMALL MOBILE */
+
+@media (max-width: 500px) {
+  .how-it-works {
+    padding: 55px 5%;
+  }
+
+  .section-heading h2 {
+    font-size: 34px;
+  }
+
+  .step {
+    padding: 20px;
+    border-radius: 16px;
   }
 }

@@ -1,6 +1,10 @@
 import "./EmergencyCTAStyle.css";
 
 function EmergencyCTA() {
+  const handleEmergencySOS = () => {
+    window.dispatchEvent(new Event("activate-sos"));
+  };
+
   return (
     <section className="emergency-cta">
 
@@ -18,7 +22,10 @@ function EmergencyCTA() {
           with your trusted contacts.
         </p>
 
-        <button className="sos-button">
+        <button
+          className="sos-button"
+          onClick={handleEmergencySOS}
+        >
           SEND SOS
         </button>
 
