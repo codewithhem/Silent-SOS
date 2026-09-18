@@ -1,6 +1,8 @@
 import { useState } from "react";
 import "./Login.css";
 
+const API_URL = import.meta.env.VITE_API_URL || "http://localhost:5000";
+
 function Login() {
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
@@ -15,7 +17,7 @@ function Login() {
 
         try {
             const response = await fetch(
-                "http://localhost:5000/api/auth/login",
+                `${API_URL}/api/auth/login`,
                 {
                     method: "POST",
                     headers: {
@@ -39,6 +41,7 @@ function Login() {
             // Save logged-in user
             localStorage.setItem("user", JSON.stringify(data.user));
             localStorage.setItem("token", data.token);
+
             setMessage("Login successful!");
 
             setTimeout(() => {

@@ -1,6 +1,8 @@
 import { useEffect, useState } from "react";
 import "./EmergencyHistory.css";
 
+const API_URL = import.meta.env.VITE_API_URL || "http://localhost:5000";
+
 function EmergencyHistory() {
   const [emergencies, setEmergencies] = useState([]);
   const [loading, setLoading] = useState(true);
@@ -16,7 +18,7 @@ function EmergencyHistory() {
 
     try {
       const response = await fetch(
-        `http://localhost:5000/api/sos/history/${user.id}`,
+        `${API_URL}/api/sos/history/${user.id}`,
         {
           headers: {
             Authorization: `Bearer ${token}`,

@@ -2,13 +2,13 @@ import { useEffect, useState } from "react";
 import "./Hero.css";
 import EmergencyAlert from "../EmergencyAlert/EmergencyAlert";
 
+const API_URL = import.meta.env.VITE_API_URL || "http://localhost:5000";
 
 function Hero() {
   const [sosStatus, setSosStatus] = useState("");
   const [showConfirm, setShowConfirm] = useState(false);
   const [showEmergency, setShowEmergency] = useState(false);
   const [emergencyData, setEmergencyData] = useState(null);
-
 
   const handleSOS = () => {
     const user = localStorage.getItem("user");
@@ -23,12 +23,12 @@ function Hero() {
   };
 
   useEffect(() => {
-  window.addEventListener("activate-sos", handleSOS);
+    window.addEventListener("activate-sos", handleSOS);
 
-  return () => {
-    window.removeEventListener("activate-sos", handleSOS);
-  };
-}, []);
+    return () => {
+      window.removeEventListener("activate-sos", handleSOS);
+    };
+  }, []);
 
   const confirmSOS = async () => {
     setShowConfirm(false);
@@ -46,7 +46,7 @@ function Hero() {
 
     try {
       const response = await fetch(
-        `http://localhost:5000/api/contacts/${user.id}`,
+        `${API_URL}/api/contacts/${user.id}`,
         {
           headers: {
             Authorization: `Bearer ${token}`,
@@ -90,7 +90,7 @@ function Hero() {
           setSosStatus("Sending emergency alert...");
 
           const response = await fetch(
-            "http://localhost:5000/api/sos",
+            `${API_URL}/api/sos`,
             {
               method: "POST",
               headers: {

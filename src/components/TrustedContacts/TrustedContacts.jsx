@@ -1,6 +1,8 @@
 import { useEffect, useState } from "react";
 import "./TrustedContacts.css";
 
+const API_URL = import.meta.env.VITE_API_URL || "http://localhost:5000";
+
 function TrustedContacts() {
   const [name, setName] = useState("");
   const [phone, setPhone] = useState("");
@@ -13,7 +15,7 @@ function TrustedContacts() {
   const getContacts = async () => {
     try {
       const response = await fetch(
-        `http://localhost:5000/api/contacts/${user.id}`,
+        `${API_URL}/api/contacts/${user.id}`,
         {
           headers: {
             Authorization: `Bearer ${token}`,
@@ -72,7 +74,7 @@ function TrustedContacts() {
 
     try {
       const response = await fetch(
-        `http://localhost:5000/api/contacts/${user.id}`,
+        `${API_URL}/api/contacts/${user.id}`,
         {
           method: "POST",
           headers: {
@@ -105,7 +107,7 @@ function TrustedContacts() {
   const deleteContact = async (contactId) => {
     try {
       const response = await fetch(
-        `http://localhost:5000/api/contacts/${user.id}/${contactId}`,
+        `${API_URL}/api/contacts/${user.id}/${contactId}`,
         {
           method: "DELETE",
           headers: {

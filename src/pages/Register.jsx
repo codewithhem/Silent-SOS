@@ -1,6 +1,8 @@
 import { useState } from "react";
 import "./Register.css";
 
+const API_URL = import.meta.env.VITE_API_URL || "http://localhost:5000";
+
 function Register() {
     const [name, setName] = useState("");
     const [email, setEmail] = useState("");
@@ -17,7 +19,7 @@ function Register() {
 
         try {
             const response = await fetch(
-                "http://localhost:5000/api/auth/register",
+                `${API_URL}/api/auth/register`,
                 {
                     method: "POST",
                     headers: {
@@ -95,7 +97,6 @@ function Register() {
                 </div>
             </div>
 
-
             <div className="register-card">
 
                 <div className="register-heading">
@@ -128,7 +129,6 @@ function Register() {
                         </div>
                     </div>
 
-
                     <div className="input-group">
                         <label>Email</label>
 
@@ -141,7 +141,6 @@ function Register() {
                             required
                         />
                     </div>
-
 
                     <div className="input-group">
                         <label>Password</label>
@@ -156,13 +155,11 @@ function Register() {
                         />
                     </div>
 
-
                     {message && (
                         <p className="register-message">
                             {message}
                         </p>
                     )}
-
 
                     <button
                         type="submit"
